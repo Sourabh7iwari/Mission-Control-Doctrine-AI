@@ -11,12 +11,7 @@ CREATE KNOWLEDGE_BASE IF NOT EXISTS military_kb USING
 
 -- Insert sample data into KB
 INSERT INTO military_kb (doc_id, country, branch, category, strategy_text)
-SELECT * FROM (
-  SELECT 'R001' AS doc_id, 'Russia' AS country, 'Army' AS branch, 'Hybrid Warfare' AS category, 'Hybrid warfare combines conventional and unconventional tactics including cyber attacks and disinformation campaigns.' AS strategy_text
-) AS t
-WHERE NOT EXISTS (SELECT * FROM military_kb WHERE doc_id = 'R001');
-
-INSERT INTO military_kb (doc_id, country, branch, category, strategy_text)
 VALUES 
-('I001', 'India', 'Navy', 'Naval Doctrine', 'India''s naval doctrine emphasizes maritime security and regional dominance in the Indian Ocean.'),
-('C001', 'China', 'Air Force', 'Air Superiority', 'China''s air force focuses on securing airspace and enhancing long-range strike capabilities.');
+  ('R001', 'Russia', 'Army', 'Hybrid Warfare', 'Hybrid warfare combines conventional and unconventional tactics including cyber attacks and disinformation campaigns.'),
+  ('I001', 'India', 'Navy', 'Naval Doctrine', 'India''s naval doctrine emphasizes maritime security and regional dominance in the Indian Ocean.'),
+  ('C001', 'China', 'Air Force', 'Air Superiority', 'China''s air force focuses on securing airspace and enhancing long-range strike capabilities.');
