@@ -1,0 +1,36 @@
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    networks:
+      - kb_network
+    environment:
+      - OLLAMA_HOST=http://0.0.0.0:11434
+    command: ["serve"]
+
+  mindsdb:
+    image: mindsdb/mindsdb
+    container_name: mindsdb
+    ports:
+      - "47334:47334"
+      - "47335:47335"
+    networks:
+      - kb_network
+    depends_on:
+      - ollama
+    environment:
+      - DEFAULT_EMBEDDING_MODEL_PROVIDER=ollama
+      - DEFAULT_EMBEDDING_MODEL_NAME=nomic-embed-text
+      - DEFAULT_EMBEDDING_MODEL_BASE_URL=http://ollama:11434
+
+networks:
+  kb_network:
+    external: true
+    name: kb_network  
+    driver: bridge
+
+volumes:
+  mindsdb_data:
+  ollama_data:
