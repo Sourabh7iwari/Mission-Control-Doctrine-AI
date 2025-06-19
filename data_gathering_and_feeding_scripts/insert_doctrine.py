@@ -11,10 +11,10 @@ DB_CONFIG = {
 }
 
 # Set these two values before running
-COUNTRY_NAME = "India"       
-WARFARE_TYPE = "Land Warfare" # Leave empty if not applicable (combined arms, air, naval, etc.)
-PDF_FILE_PATH = "IndianArmyLandWarfareDoctrine2018.pdf" 
-SOURCE_DESCRIPTION = "Security Strategy Research Institute of Japan (SSRIJ)"
+COUNTRY_NAME = "China"
+WARFARE_TYPE = "Air" # Leave empty if not applicable (combined arms, air, naval, etc.)
+PDF_FILE_PATH = "Doctrine_pdfs/Cliff-EvolutionChineseAir-2011.pdf" 
+SOURCE_DESCRIPTION = "Book Title: Shaking the Heavens and Splitting the Earth, chapter 3 - jstor.org"
 
 CHUNK_SIZE = 2000 
 
@@ -31,7 +31,9 @@ def extract_text_from_pdf(pdf_path):
     doc = fitz.open(pdf_path)
     full_text = ""
     for page in doc:
-        full_text += page.get_text()
+        page_text = page.get_text()
+        # Remove NUL characters
+        full_text += page_text.replace('\x00', '')
     return full_text
 
 def chunk_text(text, size=CHUNK_SIZE):
