@@ -1,4 +1,4 @@
--- Create Knowledge Base only if not exists
+-- Testing Creation of Knowledge Base only if not exists
 CREATE KNOWLEDGE_BASE IF NOT EXISTS military_kb USING
   embedding_model = {
     "provider": "ollama",
@@ -9,7 +9,7 @@ CREATE KNOWLEDGE_BASE IF NOT EXISTS military_kb USING
   content_columns = ['strategy_text'],
   id_column = 'doc_id';
 
--- Insert sample data into KB
+--Testing of Insertion sample data into KB
 INSERT INTO military_kb (doc_id, country, branch, category, strategy_text)
 VALUES 
   ('R001', 'Russia', 'Army', 'Hybrid Warfare', 'Hybrid warfare combines conventional and unconventional tactics including cyber attacks and disinformation campaigns.'),

@@ -25,6 +25,21 @@ services:
       - DEFAULT_EMBEDDING_MODEL_NAME=nomic-embed-text
       - DEFAULT_EMBEDDING_MODEL_BASE_URL=http://ollama:11434
 
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_USER: military_user
+      POSTGRES_PASSWORD: military_pass
+      POSTGRES_DB: military_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./military_db_dump.sql:/docker-entrypoint-initdb.d/military_db_dump.sql
+    networks:
+      - kb_network   
+
 networks:
   kb_network:
     external: true
@@ -34,3 +49,4 @@ networks:
 volumes:
   mindsdb_data:
   ollama_data:
+  postgres_data:

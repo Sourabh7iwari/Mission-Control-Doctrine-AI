@@ -11,10 +11,10 @@ DB_CONFIG = {
 }
 
 # Set these two values before running
-COUNTRY_NAME = "China"
-WARFARE_TYPE = "Air" # Leave empty if not applicable (combined arms, air, naval, etc.)
-PDF_FILE_PATH = "Doctrine_pdfs/Cliff-EvolutionChineseAir-2011.pdf" 
-SOURCE_DESCRIPTION = "Book Title: Shaking the Heavens and Splitting the Earth, chapter 3 - jstor.org"
+COUNTRY_NAME = "Japan"
+WARFARE_TYPE = "" # Leave empty if not applicable (combined arms, air, naval, etc.)
+PDF_FILE_PATH = "Doctrine_pdfs/JapanMilitaryDoctrine.pdf" 
+SOURCE_DESCRIPTION = "HAMADA Yasukazu - Minister of Defense 2023"
 
 CHUNK_SIZE = 2000 
 
