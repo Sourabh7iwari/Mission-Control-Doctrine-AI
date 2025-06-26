@@ -13,26 +13,22 @@ if ! docker info >/dev/null 2>&1; then
   DOCKER_CMD="sudo docker"
 fi
 
-echo "1/6 Starting Ollama container..."
+echo "1/4 Starting Ollama container..."
 $DOCKER_CMD compose up -d ollama
 
-echo "2/6 Waiting for Ollama initialization (15 seconds)..."
-sleep 15
+echo "2/4 Waiting for Ollama initialization (10 seconds)..."
+sleep 10
 
-echo "3/6 📦 Pulling lightweight embedding model: nomic-embed-text"
+echo "3/4 📦 Pulling lightweight embedding model: nomic-embed-text"
 sudo docker compose exec ollama ollama pull nomic-embed-text
-
-echo "4/6 📦 Pulling Phi-3 instruction model: phi3"
-sudo docker compose exec ollama ollama pull phi3
-
-echo "5/6 📦 Pulling Gemma 2B for agent support"
-sudo docker compose exec ollama ollama pull gemma:2b
 
 echo "✅ Models available:"
 $DOCKER_CMD compose exec ollama ollama list
+
+echo "4/4 Start MindsDB...run " 
+sudo docker compose up
 
 echo "=== Setup Complete ==="
 echo "Verify containers: $DOCKER_CMD compose ps"
 echo "Access MindsDB at: http://localhost:47334"
 
-echo "6/6 Start MindsDB...run ` sudo docker compose up` manually to see logs realtime for development"
