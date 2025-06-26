@@ -11,7 +11,7 @@ logging.basicConfig(
 
 # Initialize text splitter for semantic chunking
 splitter = RecursiveCharacterTextSplitter(
-    chunk_size=2000,
+    chunk_size=1000,
     chunk_overlap=200,
     separators=["\n\n", "\n", ".", " "]
 )
@@ -25,10 +25,10 @@ DB_CONFIG = {
     "port": 5433  # Matches Docker port mapping
 }
 
-COUNTRY_NAME = "America"
-WARFARE_TYPE = "Air"  # blank for general doctrine, or specify like "naval", "air", etc.
-PDF_FILE_PATH = "Doctrine_pdfs/AmericaAirDoctrine.pdf"
-SOURCE_DESCRIPTION = "Official United States Air Force Website - (doctrine.af.mil)"
+COUNTRY_NAME = "Russia"
+WARFARE_TYPE = "Naval"  # Use "Military" for generic combined doctrine
+PDF_FILE_PATH = "Doctrine_pdfs/RussiaNavalDoctrine.pdf"
+SOURCE_DESCRIPTION = "Rosendo Fraga - Director of CARI’s Foreign Relations and Armed Forces Committee"
 
 def test_connection():
     """Test if database is reachable"""
@@ -61,7 +61,7 @@ def extract_text_from_pdf(pdf_path):
 def is_irrelevant_page(text):
     """Detect known irrelevant content like index, acknowledgments, etc."""
     IRRELEVANT_KEYWORDS = [
-        "acknowledgment", "copyright", "table of contents",
+        "acknowledgment", "table of contents",
         "contents", "index", "references", "bibliography",
         "glossary", "appendix"
     ]
@@ -69,7 +69,7 @@ def is_irrelevant_page(text):
 
 def chunk_text(text):
     """Split long text into semantic chunks"""
-    logging.info(f"🧱 Chunking into 2000-character segments...")
+    logging.info(f"🧱 Chunking into 1000-character segments...")
     return splitter.split_text(text)
 
 def insert_chunks_into_postgres(country, warfare_type, chunks, source):
