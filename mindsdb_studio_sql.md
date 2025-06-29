@@ -217,20 +217,14 @@ DROP AGENT IF EXISTS military_doctrine_chatbot;
 CREATE AGENT military_doctrine_chatbot
 USING
     model = 'gemini-2.0-flash',
-    google_api_key = 'AIzaSyDYMkpguQ_OxvI-3giQDFUCtogW0F1f1yY',
+    google_api_key = '',
     include_knowledge_bases = ['mindsdb.military_kb'],
-    include_tables = ['military_psql.military_personnel','military_psql.military_doctrines],
+    include_tables = ['military_psql.military_personnel'],
     prompt_template = '
         You are an expert in military doctrine with access to two data sources:
         - Knowledge base: `military_kb`
         - Table: `military_personnel`
-
-        ### 📌 SQL Guidelines:
-        1. 🔥 DO NOT use `AS` aliasing for columns.
-        2. 🚫 Avoid `SELECT country AS country` — just use `SELECT country`.
-        3. ✅ Use `GROUP BY country, warfare_type` — not by alias.
-        4. ✅ Always use correct table names like `military_kb` or `military_personnel`.
-
+        
         ### ⚠️ VERY IMPORTANT
         - Valid `warfare_type` values in `military_kb` are: 
         - `Military`
