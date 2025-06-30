@@ -349,8 +349,8 @@ Access the web interface at [http://localhost:8501](http://localhost:8501)
 
 
 
-## working demo of web app
-[![TDAS Demo Video](https://img.youtube.com/vi/8cAuZiVjXR0/maxresdefault.jpg)](https://youtu.be/8cAuZiVjXR0)
+## working demo video of web app
+[![Watch Demo Video](https://img.youtube.com/vi/8cAuZiVjXR0/maxresdefault.jpg)](https://youtu.be/8cAuZiVjXR0)
 inserting new doctrine will be ready to chat after two hours as the kb insertion job run every 2 hours
 
 ## 🔄 System Maintenance
@@ -370,8 +370,8 @@ docker compose logs -f  # View container logs
 1. **Upload**: PDFs added via Streamlit interface
 2. **Processing**:
    - Chunking and embedding (immediate)
-   - Knowledge base integration (every 2 hours)
-   - Summary generation (every 6 hours)
+   - Knowledge base integration (every 2 hours), checking source every 2 hours
+   - Summary generation (every 6 hours), generating data from existing table and ingesting it to another table 
 3. **Analysis**: Available through chatbot after processing
 
 ## 🛑 Troubleshooting
