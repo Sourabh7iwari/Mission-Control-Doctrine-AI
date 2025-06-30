@@ -1,7 +1,4 @@
-Here's a comprehensive README.md for your Military Doctrine Analysis System:
-
-```markdown
-# 🪖 Military Doctrine Analysis System
+# 🪖 Control Room : Doctrine Ai
 
 A comprehensive platform for analyzing military doctrines using AI-powered knowledge bases, with capabilities for document ingestion, semantic search, and strategic analysis.
 
@@ -23,7 +20,7 @@ Streamlit Web Interface
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-repo/military-doctrine-analysis.git
+git clone https://github.com/Sourabh7iwari/Mission-Control-Doctrine-AI.git
 cd military-doctrine-analysis
 ```
 
@@ -229,7 +226,7 @@ WHERE output.chunk = grouped.chunk
   AND output.country = grouped.country
   AND output.warfare_type = grouped.warfare_type;
 ```
-
+all though it shows attribute error ''NoneType' object has no attribute 'affected_rows'' but the operation gets successfull.
 
 
 ## creating job for summarizing doctrines
