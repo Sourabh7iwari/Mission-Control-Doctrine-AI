@@ -9,13 +9,13 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 
 # ----------------------------------
-# ✅ Logging Setup
+# ✅ Logging Setup (UNCHANGED)
 # ----------------------------------
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # ----------------------------------
-# ✅ Config
+# ✅ Config (UNCHANGED FUNCTIONALITY)
 # ----------------------------------
 DB_CONFIG = {
     "dbname": "military_db",
@@ -40,7 +40,7 @@ COUNTRY_ALIASES = {
 }
 
 # ----------------------------------
-# ✅ Backend Functions
+# ✅ Backend Functions (UNCHANGED CODE)
 # ----------------------------------
 def query_chatbot(question):
     url = f"{MINDSDB_API_URL}/api/projects/mindsdb/agents/military_doctrine_chatbot/completions"
@@ -53,7 +53,7 @@ def query_chatbot(question):
         return response.json()["message"]["content"]
     except Exception as e:
         logger.error(f"Chatbot error: {e}")
-        return f"❌ Chatbot unavailable. Reason: {e}"
+        return f"❌ System offline. Reason: {e}"
 
 @st.cache_data
 def fetch_kb_doctrine_combinations():
@@ -115,70 +115,109 @@ def insert_chunks_into_postgres(country, warfare_type, chunks, source):
         if 'cursor' in locals(): cursor.close()
         if 'conn' in locals(): conn.close()
 
+# ----------------------------------
+# 🎖️ Enhanced Military UI (NEW THEMING)
+# ----------------------------------
+def apply_military_theme():
+    st.markdown(f"""
+    <style>
+    .stApp {{
+        background-color: #0a0f0b;
+        color: #d4d7d6;
+    }}
+    .sidebar .sidebar-content {{
+        background-color: #1a1f1c !important;
+        border-right: 1px solid #3a4b3f;
+    }}
+    .stTextInput>div>div>input {{
+        color: #e0e0e0;
+        border: 1px solid #3a4b3f;
+    }}
+    .stButton>button {{
+        background-color: #2c4b3f;
+        color: white;
+        border: 1px solid #3a6b4f;
+    }}
+    </style>
+    """, unsafe_allow_html=True)
+
 def handle_doctrine_upload():
     with st.form("doctrine_upload_form"):
-        st.subheader("📤 Upload New Doctrine")
-
-        with st.expander("ℹ️ How Doctrine Processing Works"):
+        st.subheader("📂 CLASSIFIED DOCUMENT INGESTION")
+        
+        with st.expander("PROCESSING PROTOCOL"):
             st.markdown("""
-            **Pipeline Overview:**
-            - Doctrines are stored immediately.
-            - The KB is updated every **2 hours**.
-            - Doctrine will appear in dropdown + chatbot after update.
-            - ⚠️ Large documents may require more time.
+            **T+0:** Secure storage initialized  
+            **T+2h:** Knowledge base update cycle  
+            **T+COMPLETE:** Available in tactical systems  
+            *Large documents may require extended processing*
             """)
 
-        country = st.text_input("Country", "Russia")
-        warfare_type = st.selectbox("Warfare Type", ["Naval", "Military", "Air", "Land", "Cyber", "Space", "Nuclear"])
-        source = st.text_input("Source Description", "Official military doctrine document")
-        pdf_file = st.file_uploader("Upload PDF", type="pdf")
+        cols = st.columns(2)
+        with cols[0]:
+            country = st.text_input("COUNTRY", "Russia")
+        with cols[1]:
+            warfare_type = st.selectbox(
+                "ENGAGEMENT DOMAIN",
+                ["Naval", "Military", "Air", "Land", "Cyber", "Space", "Nuclear"]
+            )
+        
+        source = st.text_input("SOURCE", "Official military doctrine document")
+        pdf_file = st.file_uploader("SELECT DOCUMENT", type="pdf")
 
-        submitted = st.form_submit_button("Upload Doctrine")
-        if submitted and pdf_file:
-            try:
-                with open("temp_upload.pdf", "wb") as f:
-                    f.write(pdf_file.getbuffer())
-                with st.spinner("⏳ Processing PDF..."):
-                    text = extract_text_from_pdf("temp_upload.pdf")
-                    chunks = splitter.split_text(text)
-                    if insert_chunks_into_postgres(country, warfare_type, chunks, source):
-                        st.success("✅ Doctrine successfully uploaded!")
-                        st.cache_data.clear()
-                    else:
-                        st.error("🚫 Upload failed")
-                os.remove("temp_upload.pdf")
-            except Exception as e:
-                st.error(f"🚨 Error: {e}")
+        if st.form_submit_button("⏫ UPLOAD TO TACTICAL DB"):
+            if pdf_file:
+                try:
+                    with st.spinner("🔒 PROCESSING CLASSIFIED MATERIAL..."):
+                        with open("temp_upload.pdf", "wb") as f:
+                            f.write(pdf_file.getbuffer())
+                        text = extract_text_from_pdf("temp_upload.pdf")
+                        chunks = splitter.split_text(text)
+                        if insert_chunks_into_postgres(country, warfare_type, chunks, source):
+                            st.success("✅ DOCUMENT INGESTED SUCCESSFULLY")
+                            st.cache_data.clear()
+                        else:
+                            st.error("❌ INGESTION FAILED")
+                    os.remove("temp_upload.pdf")
+                except Exception as e:
+                    st.error(f"🚨 OPERATION FAILED: {e}")
 
 # ----------------------------------
-# ✅ UI Layout
+# 🚀 Main App (ORIGINAL WORKFLOW WITH NEW THEME)
 # ----------------------------------
-st.set_page_config(page_title="Military Doctrine Chatbot", layout="wide")
-st.title("🪖 Military Strategy Analyst")
+def main():
+    apply_military_theme()
+    
+    st.title("🛡️ TACTICAL DOCTRINE ANALYSIS SYSTEM")
+    st.markdown("---")
 
-# Sidebar
-with st.sidebar:
-    st.title("📚 Doctrine Manager")
-    st.markdown("""---""")
-    st.header("🔍 Available Doctrines")
-    kb_combos = fetch_kb_doctrine_combinations()
-    doctrine_choice = st.selectbox("Doctrine Filter", ['All'] + kb_combos)
-    st.markdown("""---""")
-    handle_doctrine_upload()
+    with st.sidebar:
+        st.title("TACTICAL COMMAND")
+        st.markdown("---")
+        st.header("📡 OPERATIONAL FILTERS")
+        kb_combos = fetch_kb_doctrine_combinations()
+        doctrine_choice = st.selectbox("ACTIVE DOCTRINES", ['ALL ENGAGEMENTS'] + kb_combos)
+        st.markdown("---")
+        handle_doctrine_upload()
 
-# Main QA section
-question = st.text_input("Ask your question:", "Compare the naval strategies of China and America")
+    question = st.text_input(
+        "ENTER ANALYSIS QUERY:",
+        "Compare the naval strategies of China and America"
+    )
 
-for alias, real in COUNTRY_ALIASES.items():
-    if alias.lower() in question.lower():
-        question = question.replace(alias, real)
+    for alias, real in COUNTRY_ALIASES.items():
+        if alias.lower() in question.lower():
+            question = question.replace(alias, real)
 
-if doctrine_choice != "All":
-    question += f" (Focus on {doctrine_choice})"
+    if doctrine_choice != "ALL ENGAGEMENTS":
+        question += f" (Focus: {doctrine_choice})"
 
-if st.button("Analyze"):
-    with st.spinner("🔍 Analyzing military data..."):
-        response = query_chatbot(question)
-    st.subheader("📘 Strategic Analysis")
-    st.markdown(response)
-    st.caption("Data powered by 🧠 MindsDB & Streamlit")
+    if st.button("🚀 EXECUTE ANALYSIS"):
+        with st.spinner("🔍 ACCESSING STRATEGIC DATABASES..."):
+            response = query_chatbot(question)
+            st.subheader("📄 TACTICAL BRIEFING")
+            st.markdown(response)
+            st.caption("Tactical analysis powered by TDAS v2.1")
+
+if __name__ == "__main__":
+    main()
