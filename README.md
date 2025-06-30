@@ -347,6 +347,12 @@ streamlit run streamlit_wartime_webapp.py
 
 Access the web interface at [http://localhost:8501](http://localhost:8501)
 
+
+
+## working demo of web app
+[![TDAS Demo Video](https://img.youtube.com/vi/8cAuZiVjXR0/maxresdefault.jpg)](https://youtu.be/8cAuZiVjXR0)
+inserting new doctrine will be ready to chat after two hours as the kb insertion job run every 2 hours
+
 ## 🔄 System Maintenance
 
 ### View active jobs

@@ -143,13 +143,13 @@ def apply_military_theme():
 
 def handle_doctrine_upload():
     with st.form("doctrine_upload_form"):
-        st.subheader("📂 CLASSIFIED DOCUMENT INGESTION")
+        st.subheader("📂 DEPLOY NEW DOCTRINE")
         
         with st.expander("PROCESSING PROTOCOL"):
             st.markdown("""
             **T+0:** Secure storage initialized  
             **T+2h:** Knowledge base update cycle  
-            **T+COMPLETE:** Available in tactical systems  
+            **T+COMPLETE:** Available in tactical systems for analysis
             *Large documents may require extended processing*
             """)
 
@@ -188,11 +188,11 @@ def handle_doctrine_upload():
 def main():
     apply_military_theme()
     
-    st.title("🛡️ TACTICAL DOCTRINE ANALYSIS SYSTEM")
+    st.title("🛡️ CONTROL ROOM: DOCTRINE AI")
     st.markdown("---")
 
     with st.sidebar:
-        st.title("TACTICAL COMMAND")
+        st.title("MANAGE DOCTRINE")
         st.markdown("---")
         st.header("📡 OPERATIONAL FILTERS")
         kb_combos = fetch_kb_doctrine_combinations()
