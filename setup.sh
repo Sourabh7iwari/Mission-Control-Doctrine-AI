@@ -20,13 +20,13 @@ echo "2/4 Waiting for Ollama initialization (10 seconds)..."
 sleep 10
 
 echo "3/4 📦 Pulling lightweight embedding model: nomic-embed-text"
-sudo docker compose exec ollama ollama pull nomic-embed-text
+$DOCKER_CMD compose exec ollama ollama pull nomic-embed-text
 
 echo "✅ Models available:"
 $DOCKER_CMD compose exec ollama ollama list
 
 echo "4/4 Start MindsDB...run " 
-sudo docker compose up
+$DOCKER_CMD compose up
 
 echo "=== Setup Complete ==="
 echo "Verify containers: $DOCKER_CMD compose ps"

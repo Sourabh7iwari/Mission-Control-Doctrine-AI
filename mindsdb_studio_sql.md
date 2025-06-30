@@ -245,12 +245,6 @@ USING
           * per_1000_total: Military personnel per 1000 total population
           * per_1000_active: Active military per 1000 population
           * ref: Reference/source information
-        - military_doctrines (
-                doc_id text NOT NULL,
-                country text NOT NULL,
-                warfare_type text,
-                chunk text NOT NULL,
-                source text)
         
         When answering questions:
         1. Use the knowledge base for doctrinal concepts, strategies, and tactical information
