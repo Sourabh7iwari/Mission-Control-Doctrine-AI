@@ -1,3 +1,4 @@
+* will try to automate the backend setup soon with single or minimuml command *
 # 🪖 Control Room : Doctrine Ai
 
 A comprehensive platform for analyzing military doctrines using AI-powered knowledge bases, with capabilities for document ingestion, semantic search, and strategic analysis.
@@ -351,7 +352,7 @@ Access the web interface at [http://localhost:8501](http://localhost:8501)
 
 ## working demo video of web app
 [![Watch Demo Video](https://img.youtube.com/vi/8cAuZiVjXR0/maxresdefault.jpg)](https://youtu.be/8cAuZiVjXR0)
-inserting new doctrine will be ready to chat after two hours as the kb insertion job run every 2 hours
+inserting new doctrine will be ready to chat on those after two hours, as the kb insertion job run every 2 hours
 
 ## 🔄 System Maintenance
 
